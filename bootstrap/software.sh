@@ -8,6 +8,23 @@ fi
 
 ###############################################################
 
+# Part 0. Step: Bootloader - ZSWAP
+cat /etc/default/grub | grep GRUB\_CMDLINE\_LINUX\= > /tmp/grub.cmdline
+echo -e "GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT=\"zswap.enabled=1 zswap.compressor=lz4\"
+GRUB_TERMINAL=console
+" > /etc/default/grub
+cat /tmp/grub.cmdline >> /etc/default/grub
+rm -f /tmp/grub.cmdline
+update-grub
+
+# Part 0. Step: InitRamFS - ZSWAP LZ4 compressor
+grep -q -w 'lz4' /etc/initramfs-tools/modules || echo lz4 >> /etc/initramfs-tools/modules
+grep -q -w 'lz4_compress' /etc/initramfs-tools/modules || echo lz4_compress >> /etc/initramfs-tools/modules
+update-initramfs -u
+
 # Part 1: Preparation
 echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
 deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
