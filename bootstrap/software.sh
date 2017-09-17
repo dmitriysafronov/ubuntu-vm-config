@@ -31,7 +31,7 @@ deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe m
 apt update
 
 # Step: software - essential
-apt install -y linux-image-virtual-hwe-16.04-edge wget debconf-utils s-nail unattended-upgrades systemd-cron
+apt install -y linux-image-virtual-hwe-16.04-edge wget debconf-utils s-nail unattended-upgrades systemd-cron vim-tiny
 
 # Step: unattended-upgrades setup
 echo -e "APT::Periodic::Update-Package-Lists \"1\";
@@ -86,7 +86,7 @@ chmod 0750 /usr/local/sbin/reconfigure-hostname
 # Part 2: Cleanup & upgrade
 
 # Step: cleanup 1
-apt purge -y language-pack-en language-pack-gnome-ru less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils vim-common cron libpam-systemd
+apt purge -y language-pack-en language-pack-gnome-ru less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
 apt autoremove --purge -y
 
 # Step: upgrade
