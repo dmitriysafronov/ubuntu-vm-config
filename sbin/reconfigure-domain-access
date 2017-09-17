@@ -1,0 +1,79 @@
+#!/bin/bash
+
+CONF_PRESETS=/etc/domain-access.conf
+
+########################################################################################################################################
+
+if [[ -s ${CONF_PRESETS} ]]; then
+    source ${CONF_PRESETS}
+else
+    echo -e "#GROUP_LOGIN=\"A rAnDoM dOmAiN gRoUp\"\n#GROUP_SSHD=\"OtHeR rAnDoM dOmAiN gRoUp\"\n#GROUP_SUDO=\"AnOtHeR rAnDoM dOmAiN gRoUp\"" > ${CONF_PRESETS}
+fi
+
+########################################################################################################################################
+########################################################################################################################################
+
+CONF_HEADER="# User \"root\" should be allowed to get access from all sources:
++:root:ALL"
+
+CONF_FOOTER="# All other users should be denied to get access from all sources:
+-:ALL:ALL"
+
+CONF_DELIMITER="
+#################################################################################
+"
+
+########################################################################################################################################
+########################################################################################################################################
+
+if [[ -n "${GROUP_LOGIN}" ]]; then
+CONF_GENERATED_LOGIN="
++:(${GROUP_LOGIN}):ALL
++:(${GROUP_LOGIN} - $(hostname -s)):ALL"
+fi
+
+CONF_BODY_LOGIN="${CONF_DELIMITER}
+# Allow logins to specific domain group(s):
++:(domain admins):ALL${CONF_GENERATED_LOGIN}
+${CONF_DELIMITER}"
+
+########################################################################################################################################
+
+if [[ -n "${GROUP_SSHD}" ]]; then
+CONF_GENERATED_SSHD="
++:(${GROUP_SSHD}):ALL
++:(${GROUP_SSHD} - $(hostname -s)):ALL"
+fi
+
+if [[ -n "$(getent passwd | grep ansible)" ]]; then
+CONF_GENERATED_SSHD="
++:ansible:ALL${CONF_GENERATED_SSHD}"
+fi
+
+CONF_BODY_SSHD="${CONF_DELIMITER}
+# Allow ssh to specific domain group(s):
++:(domain admins):ALL${CONF_GENERATED_SSHD}
+${CONF_DELIMITER}"
+
+########################################################################################################################################
+########################################################################################################################################
+
+if [[ -n "$(which wbinfo)" && -n "$(wbinfo -t > /dev/null 2>&1 && echo ok)" ]]; then
+    echo -e "${CONF_HEADER}\n${CONF_BODY_LOGIN}\n${CONF_FOOTER}" > /etc/security/access_login.conf
+    echo -e "${CONF_HEADER}\n${CONF_BODY_SSHD}\n${CONF_FOOTER}" > /etc/security/access_sshd.conf
+
+    sed -e '/account.*required/s/pam_access.so$/pam_access.so nodefgroup listsep=, accessfile=\/etc\/security\/access_sshd.conf/g' -e '/account.*required.*pam_access.so/s/^#//' -i /etc/pam.d/sshd
+    sed -e '/account.*required/s/pam_access.so$/pam_access.so nodefgroup listsep=, accessfile=\/etc\/security\/access_login.conf/g' -e '/account.*required.*pam_access.so/s/^#//' -i /etc/pam.d/login
+
+    sed "s/^DIR_MODE=.*/DIR_MODE=0700/g" -i /etc/adduser.conf
+    sed "s/^LAST_UID=.*/LAST_UID=9999/g" -i /etc/adduser.conf
+    sed "s/^LAST_GID=.*/LAST_GID=9999/g" -i /etc/adduser.conf
+
+    if [[ -d /etc/sudoers.d ]]; then
+        if [[ -n "${GROUP_SUDO}" ]]; then
+            CONF_ESCAPED_SUDO="$(echo ${GROUP_SUDO} | sed -e 's/\ /\\\\x20/g')"
+            CONF_ESCAPED_SUDO_HOSTNAME="$(echo ${GROUP_SUDO} - $(hostname -s) | sed -e 's/\ /\\\\x20/g')"
+            echo -e "# Grant all rights to specific domain group(s)\n%${CONF_ESCAPED_SUDO} ALL=(ALL) ALL\n%${CONF_ESCAPED_SUDO_HOSTNAME} ALL=(ALL) ALL" > /etc/sudoers.d/domain-sudoers
+        fi
+    fi
+fi

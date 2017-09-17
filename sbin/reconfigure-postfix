@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [[ -z "$(hostname -d)" ]]; then
+    echo "Set up FQDN first!"
+    exit 0
+fi
+
+echo "postfix postfix/mailname string $(hostname -f)" | debconf-set-selections
+echo "postfix postfix/destinations string \$myhostname, $(hostname -s), localhost" | debconf-set-selections
+
+echo $(hostname -f) > /etc/mailname
+
+postconf -e "myhostname= $(hostname -f)"
+postconf -e "mydestination= \$myhostname, $(hostname -s), localhost"
+
+postconf -e "compatibility_level= 2"
+
+service postfix reload

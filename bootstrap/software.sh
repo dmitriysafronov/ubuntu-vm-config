@@ -54,14 +54,14 @@ echo "postfix postfix/root_address string ${ROOTMAIL}" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install --no-install-recommends -y postfix
 
 # Step: postfix reconfigurator
-wget https://gist.github.com/DmitriySafronov/e962fec446c342006f20c5e35ec97c2e/raw -O /usr/local/sbin/reconfigure-postfix
+wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-postfix -O /usr/local/sbin/reconfigure-postfix
 chown root:root /usr/local/sbin/reconfigure-postfix
 chmod 0750 /usr/local/sbin/reconfigure-postfix
 /usr/local/sbin/reconfigure-postfix
 head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q '/usr/local/sbin/reconfigure-postfix' /tmp/rc.local.tmp || `echo -e "/usr/local/sbin/reconfigure-postfix\n\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
 
 # Step: hostname reconfigurator
-wget https://gist.github.com/DmitriySafronov/204c788cad515234edcf8a202860d388/raw -O /usr/local/sbin/reconfigure-hostname
+wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-hostname -O /usr/local/sbin/reconfigure-hostname
 chown root:root /usr/local/sbin/reconfigure-hostname
 chmod 0750 /usr/local/sbin/reconfigure-hostname
 

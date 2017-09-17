@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ -z "$(which wbinfo)" || -z "$(wbinfo -t > /dev/null 2>&1 && echo ok)" ]]; then
+
+    if [[ -z "$1" ]]; then
+        echo "FQDN/hostname required!"
+        exit 1
+    fi
+
+    TMP_FQDN=$1
+    hostnamectl set-hostname ${TMP_FQDN}
+
+    if [[ -n "$(echo ${TMP_FQDN} | grep '\.')" ]]; then
+        TMP_FQDN="${TMP_FQDN}\t${TMP_FQDN%%.*}"
+    fi
+
+    sed "s/^127.0.1.1.*/127.0.1.1\t${TMP_FQDN}/g" -i /etc/hosts
+
+else
+    echo "AD member detected. Exiting..."
+fi
