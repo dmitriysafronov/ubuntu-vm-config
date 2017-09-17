@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ~/.ubuntu-vm-config
-
 if [[ -z "${ACCOUNT_EMERGENCY}" || -z "${ACCOUNT_MAINTENANCE}" ]]; then
 	clear; echo "Export SSH keys fisrt!"
 	exit 1

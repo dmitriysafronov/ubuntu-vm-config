@@ -2,8 +2,6 @@
 
 # Prerequisites: Ubuntu-minimal 16.04 installed only w/ openssh-server, FQDN hostname, root email exported as ROOTMAIL
 
-source ~/.ubuntu-vm-config
-
 if [[ -z "${ROOTMAIL}" ]]; then
 	ROOTMAIL=root@mail
 fi
