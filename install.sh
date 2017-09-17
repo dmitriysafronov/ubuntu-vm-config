@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -n "$(hostname -d)" && -n "${ROOTMAIL}" && -n "${ACCOUNT_EMERGENCY}" && -n "${ACCOUNT_MAINTENANCE}" ]]; then
+if [[ -z "$(hostname -d)" || -z "${ROOTMAIL}" || -z "${ACCOUNT_EMERGENCY}" || -z "${ACCOUNT_MAINTENANCE}" ]]; then
 	clear; echo "Set up prerequesites first!"
 	exit 1
 else
