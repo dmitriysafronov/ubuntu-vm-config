@@ -14,7 +14,7 @@ grep -q -w 'lz4_compress' /etc/initramfs-tools/modules || echo lz4_compress >> /
 update-initramfs -u
 
 # Part 0. Step: Bootloader - ZSWAP
-cat /etc/default/grub | grep GRUB\_CMDLINE\_LINUX\= > /tmp/grub.cmdline
+grep -v '#' /etc/default/grub | grep -w 'GRUB_CMDLINE_LINUX=' | tail -n 1 > /tmp/grub.cmdline
 echo -e "GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
