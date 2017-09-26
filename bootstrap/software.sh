@@ -17,7 +17,7 @@ update-initramfs -u
 grep -v '#' /etc/default/grub | grep -w 'GRUB_CMDLINE_LINUX=' | tail -n 1 > /tmp/grub.cmdline
 echo -e "GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_DISTRIBUTOR=\`lsb_release -i -s 2> /dev/null || echo Debian\`
 GRUB_CMDLINE_LINUX_DEFAULT=\"zswap.enabled=1 zswap.compressor=lz4\"
 GRUB_TERMINAL=console" > /etc/default/grub
 cat /tmp/grub.cmdline >> /etc/default/grub
