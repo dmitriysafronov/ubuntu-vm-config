@@ -19,7 +19,8 @@ echo -e "GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR=\`lsb_release -i -s 2> /dev/null || echo Debian\`
 GRUB_CMDLINE_LINUX_DEFAULT=\"zswap.enabled=1 zswap.compressor=lz4\"
-GRUB_TERMINAL=console" > /etc/default/grub
+GRUB_TERMINAL=console
+GRUB_DISABLE_OS_PROBER=true" > /etc/default/grub
 cat /tmp/grub.cmdline >> /etc/default/grub
 rm -f /tmp/grub.cmdline
 update-grub
