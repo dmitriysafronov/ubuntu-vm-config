@@ -5,7 +5,7 @@ apt install -y --no-install-recommends bash-completion tmux mc unzip htop most c
 
 # Step: tmux on login
 echo -e "if [[ -n \"\$(which tmux)\" ]]; then
-	if [[ -z \"\$TMUX\" ]]; then
-		tmux has-session -t login || exec tmux new-session -s login && exec tmux attach-session -d -t login
-	fi
+\tif [[ -z \"\$TMUX\" ]]; then
+\t\ttmux has-session -t login || exec tmux new-session -s login && exec tmux attach-session -d -t login
+\tfi
 fi" > /etc/profile.d/tmux.sh
