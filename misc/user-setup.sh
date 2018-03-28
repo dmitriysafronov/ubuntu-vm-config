@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Step: software - misc
-apt install -y --no-install-recommends bash-completion tmux mc unzip htop most command-not-found configure-debian psmisc language-pack-ru man-db
+apt install -y --no-install-recommends bash-completion tmux mc unzip htop most command-not-found configure-debian psmisc language-pack-ru man-db ncdu
 
 # Step: tmux on login
 echo -e "if [[ -n \"\$(which tmux)\" ]]; then
