@@ -5,7 +5,7 @@ if [[ -z "${ACCOUNT_EMERGENCY}" || -z "${ACCOUNT_MAINTENANCE}" ]]; then
 	exit 1
 fi
 
-export ANSIBLE_HOME='/var/lib/ansible'
+export MAINTENANCE_HOME='/var/opt/maintenance'
 
 #######
 
@@ -23,19 +23,19 @@ chattr +i /root/.ssh/authorized_keys
 chattr +i /root/.ssh
 
 
-chattr -i "${ANSIBLE_HOME}/.ssh" 2> /dev/null
-chattr -i "${ANSIBLE_HOME}/.ssh/authorized_keys" 2> /dev/null
-userdel -rf ansible 2> /dev/null
-useradd --system -d "${ANSIBLE_HOME}" -m -g nogroup -s /bin/bash -c "Ansible maintenance account" -N ansible 2> /dev/null
-mkdir -p "${ANSIBLE_HOME}/.ssh"
-echo "${ACCOUNT_MAINTENANCE}" > "${ANSIBLE_HOME}/.ssh/authorized_keys"
-chown -R ansible:nogroup "${ANSIBLE_HOME}"
-chmod -R 0700 "${ANSIBLE_HOME}"
-chmod 0600 "${ANSIBLE_HOME}/.ssh/authorized_keys"
-if [[ -n "$(which restorecon)" ]]; then restorecon -Rv "${ANSIBLE_HOME}/.ssh"; fi
-chattr +i "${ANSIBLE_HOME}/.ssh/authorized_keys"
-chattr +i "${ANSIBLE_HOME}/.ssh"
+chattr -i "${MAINTENANCE_HOME}/.ssh" 2> /dev/null
+chattr -i "${MAINTENANCE_HOME}/.ssh/authorized_keys" 2> /dev/null
+userdel -rf maintenance 2> /dev/null
+useradd --system -d "${MAINTENANCE_HOME}" -m -g nogroup -s /bin/bash -c "Maintenance account" -N maintenance 2> /dev/null
+mkdir -p "${MAINTENANCE_HOME}/.ssh"
+echo "${ACCOUNT_MAINTENANCE}" > "${MAINTENANCE_HOME}/.ssh/authorized_keys"
+chown -R maintenance:nogroup "${MAINTENANCE_HOME}"
+chmod -R 0700 "${MAINTENANCE_HOME}"
+chmod 0600 "${MAINTENANCE_HOME}/.ssh/authorized_keys"
+if [[ -n "$(which restorecon)" ]]; then restorecon -Rv "${MAINTENANCE_HOME}/.ssh"; fi
+chattr +i "${MAINTENANCE_HOME}/.ssh/authorized_keys"
+chattr +i "${MAINTENANCE_HOME}/.ssh"
 
-chattr -i /etc/sudoers.d/ansible 2> /dev/null
-echo 'ansible  ALL=(ALL:ALL) NOPASSWD:ALL' > /etc/sudoers.d/ansible
-chattr +i /etc/sudoers.d/ansible
+chattr -i /etc/sudoers.d/maintenance 2> /dev/null
+echo 'maintenance  ALL=(ALL:ALL) NOPASSWD:ALL' > /etc/sudoers.d/maintenance
+chattr +i /etc/sudoers.d/maintenance

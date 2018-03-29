@@ -45,9 +45,9 @@ CONF_GENERATED_SSHD="
 +:(${GROUP_SSHD} - $(hostname -s)):ALL"
 fi
 
-if [[ -n "$(getent passwd | grep ansible)" ]]; then
+if [[ -n "$(getent passwd | grep maintenance)" ]]; then
 CONF_GENERATED_SSHD="
-+:ansible:ALL${CONF_GENERATED_SSHD}"
++:maintenance:ALL${CONF_GENERATED_SSHD}"
 fi
 
 CONF_BODY_SSHD="${CONF_DELIMITER}
