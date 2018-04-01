@@ -3,7 +3,7 @@
 if [[ -z "$(which wbinfo)" || -z "$(wbinfo -t > /dev/null 2>&1 && echo ok)" ]]; then
 
     if [[ -z "$1" ]]; then
-        echo "FQDN/hostname required!"
+		logger -t "$(basename $0)" -s 'FQDN/hostname required! Skipping setup...'
         exit 1
     fi
 
