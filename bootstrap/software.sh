@@ -31,8 +31,8 @@ deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe
 deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe multiverse" > /etc/apt/sources.list
 apt update
 
-# Step: software - essential
-apt install -y linux-image-virtual-hwe-16.04-edge wget debconf-utils s-nail unattended-upgrades systemd-cron vim-tiny
+# Step: software - essential - pt.1
+apt install -y linux-image-virtual-hwe-16.04-edge wget debconf-utils
 
 # Step: unattended-upgrades setup
 echo -e "APT::Periodic::Update-Package-Lists \"1\";
@@ -84,6 +84,9 @@ chmod 0750 /usr/local/sbin/reconfigure-hostname
 
 # Step: mail alert on (re-)start
 head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | mail -s "System (re-)started: \$(hostname -f)" root' /tmp/rc.local.tmp || `echo 'ip a | tail -n +7 | mail -s "System (re-)started: \$(hostname -f)" root' >> /tmp/rc.local.tmp; echo -e "\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
+
+# Step: software - essential - pt.2
+apt install -y s-nail unattended-upgrades systemd-cron vim-tiny
 
 ###############################################################
 
