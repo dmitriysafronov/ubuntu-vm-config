@@ -83,7 +83,7 @@ chown root:root /usr/local/sbin/reconfigure-hostname
 chmod 0750 /usr/local/sbin/reconfigure-hostname
 
 # Step: mail alert on (re-)start
-head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | mail -s "System (re-)started: \$(hostname -f)" root' /tmp/rc.local.tmp || `echo 'ip a | tail -n +7 | mail -s "System (re-)started: \$(hostname -f)" root' >> /tmp/rc.local.tmp; echo -e "\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
+head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | mail -s "System (re-)started: \$(hostname)" root' /tmp/rc.local.tmp || `echo 'ip a | tail -n +7 | mail -s "System (re-)started: \$(hostname)" root' >> /tmp/rc.local.tmp; echo -e "\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
 
 # Step: software - essential - pt.2
 apt install -y s-nail unattended-upgrades systemd-cron vim-tiny

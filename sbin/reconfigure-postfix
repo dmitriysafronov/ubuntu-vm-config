@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [[ -z "$(hostname -d)" ]]; then
-    echo "Set up FQDN first!"
-    exit 0
+    echo "Set up correct FQDN first!"
+    exit 1
 fi
 
 echo "postfix postfix/mailname string $(hostname -f)" | debconf-set-selections
