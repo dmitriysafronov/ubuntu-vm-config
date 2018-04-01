@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -z "$(hostname -d)" || -z "${ROOTMAIL}" || -z "${ACCOUNT_EMERGENCY}" || -z "${ACCOUNT_MAINTENANCE}" ]]; then
+if [[ -z "${ROOTMAIL}" || -z "${ACCOUNT_EMERGENCY}" || -z "${ACCOUNT_MAINTENANCE}" ]]; then
 	clear; echo "Set up prerequesites first!"
 else
 	wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/bootstrap/accounts.sh -O /tmp/ubuntu-vm-config.sh
