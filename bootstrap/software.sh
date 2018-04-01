@@ -32,7 +32,7 @@ deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe m
 apt update
 
 # Step: software - essential - pt.1
-apt install -y linux-image-virtual-hwe-16.04-edge wget debconf-utils
+apt install -y linux-image-virtual-hwe-16.04-edge debconf-utils
 
 # Step: unattended-upgrades setup
 echo -e "APT::Periodic::Update-Package-Lists \"1\";
