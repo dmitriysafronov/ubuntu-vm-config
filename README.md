@@ -7,10 +7,6 @@ Preconfigure a Ubuntu KVM VM from minimal installation for ansible management
 ```bash
 #!/bin/bash
 
-echo "root:YourVerySecretRootPassword" | chpasswd
-
-###
-
 export ROOTMAIL=your@root.email
 export ACCOUNT_EMERGENCY='ssh-rsa YourRootSshPublicKey Emergency account'
 export ACCOUNT_MAINTENANCE='ssh-rsa YourAnsibleSshPublicKey Maintenance account'
