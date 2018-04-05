@@ -10,7 +10,6 @@ echo -e "if [[ \${UID} -eq 0 || \${UID} -ge 1000 ]]; then
 \t\t\ttmux has-session -t login || exec tmux new-session -s login && exec tmux attach-session -d -t login
 \t\tfi
 \tfi
-fi
-" > /etc/profile.d/tmux.sh
+fi" > /etc/profile.d/tmux.sh
 
 #
