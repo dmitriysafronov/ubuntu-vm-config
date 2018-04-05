@@ -12,3 +12,5 @@ echo -e "if [[ \${UID} -eq 0 || \${UID} -ge 1000 ]]; then
 \tfi
 fi
 " > /etc/profile.d/tmux.sh
+
+#
