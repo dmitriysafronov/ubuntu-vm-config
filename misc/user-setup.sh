@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Step: software - misc
-apt install -y --no-install-recommends bash-completion tmux mc unzip htop most command-not-found configure-debian psmisc man-db ncdu
-
 # Step: tmux on login
 echo -e "if [[ \${UID} -eq 0 || \${UID} -ge 1000 ]]; then
 \tif [[ -n \"\$(which tmux)\" ]]; then
@@ -11,5 +8,8 @@ echo -e "if [[ \${UID} -eq 0 || \${UID} -ge 1000 ]]; then
 \t\tfi
 \tfi
 fi" > /etc/profile.d/tmux.sh
+
+# Step: software - misc
+apt install -y --no-install-recommends bash-completion tmux mc unzip htop most command-not-found configure-debian psmisc man-db ncdu
 
 #
