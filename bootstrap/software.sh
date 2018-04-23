@@ -93,7 +93,7 @@ apt install -y linux-image-virtual-hwe-16.04-edge s-nail unattended-upgrades sys
 # Part 2: Cleanup & upgrade
 
 # Step: cleanup 1
-apt purge -y language-pack-en language-pack-gnome-ru less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
+apt purge -y snapd language-pack-en language-pack-gnome-ru less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
 apt autoremove --purge -y
 
 # Step: upgrade
