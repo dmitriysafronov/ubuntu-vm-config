@@ -31,24 +31,6 @@ deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe
 deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe multiverse" > /etc/apt/sources.list
 apt update
 
-# Step: unattended-upgrades setup
-echo -e "APT::Periodic::Update-Package-Lists \"1\";
-APT::Periodic::Unattended-Upgrade \"1\";" > /etc/apt/apt.conf.d/20auto-upgrades
-
-echo -e "Unattended-Upgrade::Allowed-Origins {
-        \"\${distro_id}:\${distro_codename}\";
-        \"\${distro_id}:\${distro_codename}-security\";
-        \"\${distro_id}:\${distro_codename}-updates\";
-};
-Unattended-Upgrade::AutoFixInterruptedDpkg \"true\";
-Unattended-Upgrade::MinimalSteps \"true\";
-Unattended-Upgrade::InstallOnShutdown \"false\";
-Unattended-Upgrade::Mail \"root\";
-Unattended-Upgrade::MailOnlyOnError \"false\";
-Unattended-Upgrade::Remove-Unused-Dependencies \"true\";
-Unattended-Upgrade::Automatic-Reboot-Time \"03:00\";
-Unattended-Upgrade::Automatic-Reboot \"true\";" > /etc/apt/apt.conf.d/50unattended-upgrades
-
 # Step: software - essential - pt.1
 apt install -y debconf-utils
 
@@ -87,6 +69,27 @@ head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | mail 
 
 # Step: software - essential - pt.2
 apt install -y linux-image-virtual-hwe-16.04-edge s-nail unattended-upgrades systemd-cron vim-tiny
+
+# Step: unattended-upgrades setup
+echo -e "APT::Periodic::Update-Package-Lists \"1\";
+APT::Periodic::Unattended-Upgrade \"1\";" > /etc/apt/apt.conf.d/20auto-upgrades
+
+echo -e "Unattended-Upgrade::Allowed-Origins {
+        \"\${distro_id}:\${distro_codename}\";
+        \"\${distro_id}:\${distro_codename}-security\";
+        \"\${distro_id}:\${distro_codename}-updates\";
+};
+Unattended-Upgrade::AutoFixInterruptedDpkg \"true\";
+Unattended-Upgrade::MinimalSteps \"true\";
+Unattended-Upgrade::InstallOnShutdown \"false\";
+Unattended-Upgrade::Mail \"root\";
+Unattended-Upgrade::MailOnlyOnError \"false\";
+Unattended-Upgrade::Remove-Unused-Dependencies \"true\";
+Unattended-Upgrade::Automatic-Reboot-Time \"03:00\";
+Unattended-Upgrade::Automatic-Reboot \"true\";" > /etc/apt/apt.conf.d/50unattended-upgrades
+
+# Step: software - additional
+apt install -y --no-install-recommends qemu-guest-agent
 
 ###############################################################
 
