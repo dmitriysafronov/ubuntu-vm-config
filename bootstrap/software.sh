@@ -48,13 +48,14 @@ echo "localepurge localepurge/nopurge multiselect C.UTF-8" | debconf-set-selecti
 echo "localepurge localepurge/dontbothernew boolean false" | debconf-set-selections
 echo "localepurge localepurge/showfreedspace boolean false" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y localepurge
-update-locale --reset LANG=ru_RU.UTF-8
+update-locale --reset LANG=C.UTF-8
 localepurge
 
 # Step: postfix
 echo "postfix postfix/main_mailer_type select Internet Site" | debconf-set-selections
 echo "postfix postfix/mailname string $(hostname -f)" | debconf-set-selections
 echo "postfix postfix/root_address string ${ROOTMAIL}" | debconf-set-selections
+echo "postfix postfix/protocols select all" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install --no-install-recommends -y postfix
 
 # Step: postfix reconfigurator
