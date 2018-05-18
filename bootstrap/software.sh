@@ -39,7 +39,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" inst
 
 # Step: localepurge
 echo "localepurge localepurge/use-dpkg-feature boolean false" | debconf-set-selections
-echo "localepurge localepurge/nopurge multiselect C.UTF-8, ru_RU.UTF-8" | debconf-set-selections
+echo "localepurge localepurge/nopurge multiselect C.UTF-8" | debconf-set-selections
 echo "localepurge localepurge/dontbothernew boolean false" | debconf-set-selections
 echo "localepurge localepurge/showfreedspace boolean false" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y localepurge
@@ -97,7 +97,7 @@ apt install -y --no-install-recommends qemu-guest-agent
 
 # Step: cleanup 1
 apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd screen byobu
-apt purge -y language-pack-en language-pack-gnome-ru less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
+apt purge -y language-pack-en language-pack-ru less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
 apt autoremove --purge -y
 
 # Step: upgrade
