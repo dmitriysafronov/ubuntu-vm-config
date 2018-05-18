@@ -26,9 +26,9 @@ rm -f /tmp/grub.cmdline
 update-grub
 
 # Part 1: Preparation
-echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe multiverse" > /etc/apt/sources.list
+echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse" > /etc/apt/sources.list
 apt update
 
 # Step: software - essential - pt.1
@@ -68,7 +68,7 @@ chmod 0750 /usr/local/sbin/reconfigure-hostname
 head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | mail -s "System (re-)started: \$(hostname)" root' /tmp/rc.local.tmp || `echo 'ip a | tail -n +7 | mail -s "System (re-)started: \$(hostname)" root' >> /tmp/rc.local.tmp; echo -e "\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
 
 # Step: software - essential - pt.2
-apt install -y linux-image-virtual-hwe-16.04-edge s-nail unattended-upgrades systemd-cron vim-tiny
+apt install -y linux-image-virtual s-nail unattended-upgrades systemd-cron vim-tiny
 
 # Step: unattended-upgrades setup
 echo -e "APT::Periodic::Update-Package-Lists \"1\";
