@@ -6,6 +6,11 @@ if [[ -z "${ROOTMAIL}" ]]; then
 	ROOTMAIL=root@mail
 fi
 
+# Step: cleanup
+apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd screen byobu
+apt purge -y language-pack-* less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
+apt autoremove --purge -y
+
 ###############################################################
 
 # Part 0. Step: InitRamFS - ZSWAP LZ4 compressor
@@ -94,11 +99,6 @@ apt install -y --no-install-recommends qemu-guest-agent
 ###############################################################
 
 # Part 2: Cleanup & upgrade
-
-# Step: cleanup 1
-apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd screen byobu
-apt purge -y language-pack-* less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
-apt autoremove --purge -y
 
 # Step: upgrade
 apt full-upgrade -y
