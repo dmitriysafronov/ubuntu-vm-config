@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Prerequisites: Ubuntu-minimal 16.04 installed only w/ openssh-server, FQDN hostname, root email exported as ROOTMAIL
+# Prerequisites: Ubuntu-minimal installed only w/ openssh-server, FQDN hostname, root email exported as ROOTMAIL
 
 if [[ -z "${ROOTMAIL}" ]]; then
 	ROOTMAIL=root@mail
@@ -97,7 +97,7 @@ apt install -y --no-install-recommends qemu-guest-agent
 
 # Step: cleanup 1
 apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd screen byobu
-apt purge -y language-pack-en language-pack-ru less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
+apt purge -y language-pack-* less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
 apt autoremove --purge -y
 
 # Step: upgrade
