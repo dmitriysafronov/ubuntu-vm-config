@@ -31,9 +31,9 @@ rm -f /tmp/grub.cmdline
 update-grub
 
 # Part 1: Preparation
-echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse" > /etc/apt/sources.list
+echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe multiverse" > /etc/apt/sources.list
 apt update
 
 # Step: software - essential - pt.1
