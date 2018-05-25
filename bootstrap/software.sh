@@ -6,6 +6,8 @@ if [[ -z "${ROOTMAIL}" ]]; then
 	ROOTMAIL=root@mail
 fi
 
+###############################################################
+
 # Step: Preparation
 echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
 deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
