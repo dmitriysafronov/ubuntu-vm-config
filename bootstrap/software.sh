@@ -127,6 +127,9 @@ rm -rf /var/lib/logrotate/* 2> /dev/null
 # Urandom
 rm -rf /var/lib/urandomdev/null
 
+# Supervise
+rm -rf /var/lib/supervise
+
 # Journal (if any)
 rm -rf /var/log/journal/* 2> /dev/null
 
