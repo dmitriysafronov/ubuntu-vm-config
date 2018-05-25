@@ -6,19 +6,25 @@ if [[ -z "${ROOTMAIL}" ]]; then
 	ROOTMAIL=root@mail
 fi
 
-# Step: cleanup
+# Step: Preparation
+echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe multiverse" > /etc/apt/sources.list
+apt update
+
+# Step: Cleanup
 apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd screen byobu update-motd
 apt purge -y language-pack-* less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
 apt autoremove --purge -y
 
 ###############################################################
 
-# Part 0. Step: InitRamFS - ZSWAP LZ4 compressor
+# Step: InitRamFS - ZSWAP LZ4 compressor
 grep -q -w 'lz4' /etc/initramfs-tools/modules || echo lz4 >> /etc/initramfs-tools/modules
 grep -q -w 'lz4_compress' /etc/initramfs-tools/modules || echo lz4_compress >> /etc/initramfs-tools/modules
 update-initramfs -u
 
-# Part 0. Step: Bootloader - ZSWAP
+# Step: Bootloader - ZSWAP
 grep -v '#' /etc/default/grub | grep -w 'GRUB_CMDLINE_LINUX=' | tail -n 1 > /tmp/grub.cmdline
 echo -e "GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
@@ -29,12 +35,6 @@ GRUB_DISABLE_OS_PROBER=true" > /etc/default/grub
 cat /tmp/grub.cmdline >> /etc/default/grub
 rm -f /tmp/grub.cmdline
 update-grub
-
-# Part 1: Preparation
-echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe multiverse" > /etc/apt/sources.list
-apt update
 
 # Step: software - essential - pt.1
 apt install -y debconf-utils
@@ -99,12 +99,13 @@ apt install -y --no-install-recommends qemu-guest-agent
 
 ###############################################################
 
-# Part 2: Cleanup & upgrade
+# Step: Cleanup & upgrade
+apt autoremove --purge -y
 
 # Step: upgrade
 apt full-upgrade -y
 
-## Step: cleanup 2
+# Step: cleanup 2
 # Unattended-upgrades
 rm -f /etc/apt/apt.conf.d/20auto-upgrades.ucf-dist
 rm -f /etc/apt/apt.conf.d/50unattended-upgrades.ucf-dist
