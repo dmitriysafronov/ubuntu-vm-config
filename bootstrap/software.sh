@@ -15,7 +15,7 @@ deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe m
 apt update
 
 # Step: software - essential - pt.1
-apt install -y debconf-utils systemd-cron s-nail
+apt install -y debconf-utils systemd-cron
 
 # Step: postfix
 echo "postfix postfix/main_mailer_type select Internet Site" | debconf-set-selections
@@ -32,13 +32,13 @@ eject screen byobu update-motd language-selector-common language-pack-* dictiona
 accountsservice installation-report \
 libx11-data xdg-user-dirs \
 laptop-detect os-prober dmidecode wireless-regdb libdiscover2 libxml2 pciutils usbutils \
-linux-firmware linux-generic* linux-headers* linux-image*
+linux-firmware linux-generic* linux-headers*
 apt autoremove --purge -y
 
 ###############################################################
 
 # Step: software - essential - pt.2
-apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny
+apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny s-nail
 
 ###############################################################
 
