@@ -15,7 +15,7 @@ deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe m
 apt update
 
 # Step: software - essential - pt.1
-apt install -y debconf-utils
+apt install -y debconf-utils systemd-cron s-nail
 
 # Step: postfix
 echo "postfix postfix/main_mailer_type select Internet Site" | debconf-set-selections
@@ -27,9 +27,18 @@ DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" inst
 ###############################################################
 
 # Step: Cleanup 1
-apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd screen byobu update-motd
-apt purge -y language-pack-* less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
+apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd cron libpam-systemd \
+eject screen byobu update-motd language-selector-common language-pack-* dictionaries-common emacsen-common wamerican wbritish \
+accountsservice installation-report \
+libx11-data xdg-user-dirs \
+laptop-detect os-prober dmidecode wireless-regdb libdiscover2 libxml2 pciutils usbutils \
+linux-firmware linux-generic* linux-headers* linux-image*
 apt autoremove --purge -y
+
+###############################################################
+
+# Step: software - essential - pt.2
+apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny
 
 ###############################################################
 
@@ -64,6 +73,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" inst
 update-locale --reset LANG=C.UTF-8
 localepurge
 
+###############################################################
+
 # Step: postfix reconfigurator
 wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-postfix -O /usr/local/sbin/reconfigure-postfix
 chown root:root /usr/local/sbin/reconfigure-postfix
@@ -78,9 +89,6 @@ chmod 0750 /usr/local/sbin/reconfigure-hostname
 
 # Step: mail alert on (re-)start
 head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | s-nail -s "System (re-)started: \$(hostname)" root' /tmp/rc.local.tmp || `echo 'ip a | tail -n +7 | s-nail -s "System (re-)started: \$(hostname)" root' >> /tmp/rc.local.tmp; echo -e "\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
-
-# Step: software - essential - pt.2
-apt install -y linux-image-virtual-hwe-16.04-edge s-nail unattended-upgrades systemd-cron vim-tiny
 
 # Step: unattended-upgrades setup
 echo -e "APT::Periodic::Update-Package-Lists \"1\";
@@ -99,6 +107,8 @@ Unattended-Upgrade::MailOnlyOnError \"false\";
 Unattended-Upgrade::Remove-Unused-Dependencies \"true\";
 Unattended-Upgrade::Automatic-Reboot-Time \"03:00\";
 Unattended-Upgrade::Automatic-Reboot \"true\";" > /etc/apt/apt.conf.d/50unattended-upgrades
+
+###############################################################
 
 # Step: software - additional
 apt install -y --no-install-recommends qemu-guest-agent
