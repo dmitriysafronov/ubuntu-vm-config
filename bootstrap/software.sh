@@ -99,6 +99,16 @@ apt install -y --no-install-recommends qemu-guest-agent
 
 ###############################################################
 
+# Step: Swap & swappiness
+fallocate -l 128M /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+cat /etc/fstab > /tmp/fstab.tmp; grep -q '/swapfile none swap sw 0 0' /tmp/fstab.tmp || `echo '/swapfile none swap sw 0 0' >> /tmp/fstab.tmp; cat /tmp/fstab.tmp > /etc/fstab`
+echo -e "vm.swappiness=0
+vm.vfs_cache_pressure=50" > /etc/sysctl.d/98-swappiness.conf
+
+###############################################################
+
 # Step: Cleanup & upgrade
 apt autoremove --purge -y
 
