@@ -12,7 +12,19 @@ deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe
 deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe multiverse" > /etc/apt/sources.list
 apt update
 
-# Step: Cleanup
+# Step: software - essential - pt.1
+apt install -y debconf-utils
+
+# Step: postfix
+echo "postfix postfix/main_mailer_type select Internet Site" | debconf-set-selections
+echo "postfix postfix/mailname string $(hostname -f)" | debconf-set-selections
+echo "postfix postfix/root_address string ${ROOTMAIL}" | debconf-set-selections
+echo "postfix postfix/protocols select all" | debconf-set-selections
+DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install --no-install-recommends -y postfix
+
+###############################################################
+
+# Step: Cleanup 1
 apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd screen byobu update-motd
 apt purge -y language-pack-* less laptop-detect os-prober dmidecode dictionaries-common emacsen-common wamerican wbritish wireless-regdb linux-generic linux-firmware linux-headers accountsservice installation-report libx11-data xdg-user-dirs eject language-selector-common libdiscover2 libxml2 pciutils usbutils cron libpam-systemd
 apt autoremove --purge -y
@@ -36,8 +48,7 @@ cat /tmp/grub.cmdline >> /etc/default/grub
 rm -f /tmp/grub.cmdline
 update-grub
 
-# Step: software - essential - pt.1
-apt install -y debconf-utils
+###############################################################
 
 # Step: iptables-persistent
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y iptables-persistent
@@ -50,13 +61,6 @@ echo "localepurge localepurge/showfreedspace boolean false" | debconf-set-select
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y localepurge
 update-locale --reset LANG=C.UTF-8
 localepurge
-
-# Step: postfix
-echo "postfix postfix/main_mailer_type select Internet Site" | debconf-set-selections
-echo "postfix postfix/mailname string $(hostname -f)" | debconf-set-selections
-echo "postfix postfix/root_address string ${ROOTMAIL}" | debconf-set-selections
-echo "postfix postfix/protocols select all" | debconf-set-selections
-DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install --no-install-recommends -y postfix
 
 # Step: postfix reconfigurator
 wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-postfix -O /usr/local/sbin/reconfigure-postfix
@@ -109,13 +113,13 @@ vm.vfs_cache_pressure=50" > /etc/sysctl.d/98-swappiness.conf
 
 ###############################################################
 
-# Step: Cleanup & upgrade
+# Step: Cleanup 2
 apt autoremove --purge -y
 
 # Step: upgrade
 apt full-upgrade -y
 
-# Step: cleanup 2
+## Step: cleanup 3
 # Unattended-upgrades
 rm -f /etc/apt/apt.conf.d/20auto-upgrades.ucf-dist
 rm -f /etc/apt/apt.conf.d/50unattended-upgrades.ucf-dist
