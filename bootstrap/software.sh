@@ -15,7 +15,7 @@ deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe m
 apt update
 
 # Step: software - essential - pt.1
-apt install -y debconf-utils systemd-cron
+apt install -y debconf-utils
 
 # Step: postfix
 echo "postfix postfix/main_mailer_type select Internet Site" | debconf-set-selections
@@ -38,7 +38,7 @@ apt autoremove --purge -y
 ###############################################################
 
 # Step: software - essential - pt.2
-apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny s-nail
+apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny s-nail systemd-cron
 
 ###############################################################
 
