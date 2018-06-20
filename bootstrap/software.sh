@@ -109,7 +109,17 @@ Unattended-Upgrade::Automatic-Reboot \"true\";" > /etc/apt/apt.conf.d/50unattend
 ###############################################################
 
 # Step: software - additional
-apt install -y --no-install-recommends qemu-guest-agent
+apt install -y --no-install-recommends qemu-guest-agent rkhunter unhide
+
+###############################################################
+
+## Step: copy configs
+wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/etc/default/rkhunter -O /etc/default/rkhunter
+chown root:root /etc/default/rkhunter
+chmod 0644 /etc/default/rkhunter
+wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/etc/rkhunter.conf -O /etc/rkhunter.conf
+chown root:root /etc/rkhunter.conf
+chmod 0644 /etc/rkhunter.conf
 
 ###############################################################
 
