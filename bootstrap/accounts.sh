@@ -19,7 +19,7 @@ chown -R root:root /root
 chmod 0700 /root/.ssh
 chmod 0600 /root/.ssh/authorized_keys
 if [[ -n "$(which restorecon)" ]]; then restorecon -Rv /root/.ssh; fi
-chattr +i /root/.ssh/authorized_keys
+#chattr +i /root/.ssh/authorized_keys
 
 #######
 
@@ -33,8 +33,8 @@ chown -R maintenance:nogroup "${MAINTENANCE_HOME}"
 chmod -R 0700 "${MAINTENANCE_HOME}"
 chmod 0600 "${MAINTENANCE_HOME}/.ssh/authorized_keys"
 if [[ -n "$(which restorecon)" ]]; then restorecon -Rv "${MAINTENANCE_HOME}/.ssh"; fi
-chattr +i "${MAINTENANCE_HOME}/.ssh/authorized_keys"
+#chattr +i "${MAINTENANCE_HOME}/.ssh/authorized_keys"
 
 chattr -i /etc/sudoers.d/maintenance 2> /dev/null
 echo 'maintenance  ALL=(ALL:ALL) NOPASSWD:ALL' > /etc/sudoers.d/maintenance
-chattr +i /etc/sudoers.d/maintenance
+#chattr +i /etc/sudoers.d/maintenance
