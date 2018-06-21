@@ -85,6 +85,11 @@ wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfi
 chown root:root /usr/local/sbin/reconfigure-hostname
 chmod 0750 /usr/local/sbin/reconfigure-hostname
 
+# Step: rkhunter reconfigurator
+wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-rkhunter -O /usr/local/sbin/reconfigure-rkhunter
+chown root:root /usr/local/sbin/reconfigure-rkhunter
+chmod 0750 /usr/local/sbin/reconfigure-rkhunter
+
 # Step: mail alert on (re-)start
 head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | s-nail -s "System (re-)started: \$(hostname)" root' /tmp/rc.local.tmp || `echo 'ip a | tail -n +7 | s-nail -s "System (re-)started: \$(hostname)" root' >> /tmp/rc.local.tmp; echo -e "\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
 
@@ -113,13 +118,8 @@ apt install -y --no-install-recommends qemu-guest-agent rkhunter unhide
 
 ###############################################################
 
-## Step: copy configs
-wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/etc/default/rkhunter -O /etc/default/rkhunter
-chown root:root /etc/default/rkhunter
-chmod 0644 /etc/default/rkhunter
-wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/etc/rkhunter.conf -O /etc/rkhunter.conf
-chown root:root /etc/rkhunter.conf
-chmod 0644 /etc/rkhunter.conf
+# Step: software - additional
+/usr/local/sbin/reconfigure-rkhunter
 
 ###############################################################
 
