@@ -15,3 +15,9 @@ postconf -e "myhostname= $(hostname -f)"
 postconf -e "mydestination= \$myhostname, $(hostname -s), localhost"
 
 service postfix reload
+
+# reconfigure postfix on boot
+head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q '/usr/local/sbin/reconfigure-postfix' /tmp/rc.local.tmp || `echo -e "/usr/local/sbin/reconfigure-postfix\n\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
+
+# mail to root
+head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | s-nail -s "System (re-)started: \$(hostname)" root' /tmp/rc.local.tmp || `echo 'ip a | tail -n +7 | s-nail -s "System (re-)started: \$(hostname)" root' >> /tmp/rc.local.tmp; echo -e "\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`

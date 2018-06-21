@@ -77,8 +77,6 @@ localepurge
 wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-postfix -O /usr/local/sbin/reconfigure-postfix
 chown root:root /usr/local/sbin/reconfigure-postfix
 chmod 0750 /usr/local/sbin/reconfigure-postfix
-/usr/local/sbin/reconfigure-postfix
-head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q '/usr/local/sbin/reconfigure-postfix' /tmp/rc.local.tmp || `echo -e "/usr/local/sbin/reconfigure-postfix\n\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
 
 # Step: hostname reconfigurator
 wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-hostname -O /usr/local/sbin/reconfigure-hostname
@@ -89,9 +87,6 @@ chmod 0750 /usr/local/sbin/reconfigure-hostname
 wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-rkhunter -O /usr/local/sbin/reconfigure-rkhunter
 chown root:root /usr/local/sbin/reconfigure-rkhunter
 chmod 0750 /usr/local/sbin/reconfigure-rkhunter
-
-# Step: mail alert on (re-)start
-head -n -1 /etc/rc.local > /tmp/rc.local.tmp; grep -q 'ip a | tail -n +7 | s-nail -s "System (re-)started: \$(hostname)" root' /tmp/rc.local.tmp || `echo 'ip a | tail -n +7 | s-nail -s "System (re-)started: \$(hostname)" root' >> /tmp/rc.local.tmp; echo -e "\nexit 0" >> /tmp/rc.local.tmp; cat /tmp/rc.local.tmp > /etc/rc.local`
 
 # Step: unattended-upgrades setup
 echo -e "APT::Periodic::Update-Package-Lists \"1\";
@@ -118,7 +113,8 @@ apt install -y --no-install-recommends qemu-guest-agent rkhunter unhide
 
 ###############################################################
 
-# Step: software - additional
+# Step: additional setup
+/usr/local/sbin/reconfigure-postfix
 /usr/local/sbin/reconfigure-rkhunter
 
 ###############################################################
