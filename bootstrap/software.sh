@@ -52,7 +52,8 @@ apt install -y --no-install-recommends qemu-guest-agent rkhunter unhide
 apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd cron libpam-systemd update-manager-core update-notifier-common \
 eject screen byobu update-motd language-selector-common language-pack-* dictionaries-common emacsen-common wamerican wbritish \
 accountsservice installation-report libx11-data xdg-user-dirs laptop-detect os-prober dmidecode wireless-regdb libdiscover2 libxml2 \
-pciutils usbutils linux-firmware linux-generic* linux-headers* landscape-common plymouth* at ufw networkd-dispatcher
+pciutils usbutils linux-firmware linux-generic* linux-headers* landscape-common plymouth* \
+at ufw networkd-dispatcher overlayroot ubuntu-advantage-tools ubuntu-release-upgrader-core
 apt autoremove --purge -y
 
 ###############################################################
@@ -114,6 +115,13 @@ Unattended-Upgrade::Automatic-Reboot \"true\";" > /etc/apt/apt.conf.d/50unattend
 # Step: additional setup
 /usr/local/sbin/reconfigure-postfix
 /usr/local/sbin/reconfigure-rkhunter
+
+# STFU MOTD-NEWS
+systemctl stop motd-news.timer
+systemctl stop motd-news.service
+systemctl disable motd-news.timer
+systemctl disable motd-news.service
+echo -e "ENABLED=0" > /etc/default/motd-news
 
 ###############################################################
 
