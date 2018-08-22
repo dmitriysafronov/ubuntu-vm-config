@@ -33,7 +33,7 @@ apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny s
 apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd cron libpam-systemd update-manager-core update-notifier-common \
 eject screen byobu update-motd language-selector-common language-pack-* dictionaries-common emacsen-common wamerican wbritish \
 accountsservice installation-report libx11-data xdg-user-dirs laptop-detect os-prober dmidecode wireless-regdb libdiscover2 libxml2 \
-pciutils usbutils linux-firmware linux-generic* linux-headers* landscape-common plymouth* at ufw
+pciutils usbutils linux-firmware linux-generic* linux-headers* landscape-common plymouth* at ufw networkd-dispatcher
 apt autoremove --purge -y
 
 ###############################################################
