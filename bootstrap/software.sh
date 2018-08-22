@@ -29,6 +29,20 @@ apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny s
 
 ###############################################################
 
+# Step: iptables-persistent
+DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y iptables-persistent
+
+# Step: localepurge
+echo "localepurge localepurge/use-dpkg-feature boolean false" | debconf-set-selections
+echo "localepurge localepurge/nopurge multiselect C.UTF-8" | debconf-set-selections
+echo "localepurge localepurge/dontbothernew boolean false" | debconf-set-selections
+echo "localepurge localepurge/showfreedspace boolean false" | debconf-set-selections
+DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y localepurge
+update-locale --reset LANG=C.UTF-8
+localepurge
+
+###############################################################
+
 # Step: Cleanup 1
 apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd cron libpam-systemd update-manager-core update-notifier-common \
 eject screen byobu update-motd language-selector-common language-pack-* dictionaries-common emacsen-common wamerican wbritish \
@@ -54,20 +68,6 @@ GRUB_DISABLE_OS_PROBER=true" > /etc/default/grub
 cat /tmp/grub.cmdline >> /etc/default/grub
 rm -f /tmp/grub.cmdline
 update-grub
-
-###############################################################
-
-# Step: iptables-persistent
-DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y iptables-persistent
-
-# Step: localepurge
-echo "localepurge localepurge/use-dpkg-feature boolean false" | debconf-set-selections
-echo "localepurge localepurge/nopurge multiselect C.UTF-8" | debconf-set-selections
-echo "localepurge localepurge/dontbothernew boolean false" | debconf-set-selections
-echo "localepurge localepurge/showfreedspace boolean false" | debconf-set-selections
-DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y localepurge
-update-locale --reset LANG=C.UTF-8
-localepurge
 
 ###############################################################
 
