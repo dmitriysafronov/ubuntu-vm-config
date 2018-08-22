@@ -24,6 +24,9 @@ echo "postfix postfix/root_address string ${ROOTMAIL}" | debconf-set-selections
 echo "postfix postfix/protocols select all" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install --no-install-recommends -y postfix
 
+# Step: software - essential - pt.2
+apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny s-nail systemd-cron
+
 ###############################################################
 
 # Step: Cleanup 1
@@ -32,11 +35,6 @@ eject screen byobu update-motd language-selector-common language-pack-* dictiona
 accountsservice installation-report libx11-data xdg-user-dirs laptop-detect os-prober dmidecode wireless-regdb libdiscover2 libxml2 \
 pciutils usbutils linux-firmware linux-generic* linux-headers* landscape-common plymouth*
 apt autoremove --purge -y
-
-###############################################################
-
-# Step: software - essential - pt.2
-apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny s-nail systemd-cron
 
 ###############################################################
 
