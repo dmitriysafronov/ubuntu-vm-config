@@ -43,6 +43,11 @@ localepurge
 
 ###############################################################
 
+# Step: software - additional
+apt install -y --no-install-recommends qemu-guest-agent rkhunter unhide
+
+###############################################################
+
 # Step: Cleanup 1
 apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd cron libpam-systemd update-manager-core update-notifier-common \
 eject screen byobu update-motd language-selector-common language-pack-* dictionaries-common emacsen-common wamerican wbritish \
@@ -103,11 +108,6 @@ Unattended-Upgrade::MailOnlyOnError \"false\";
 Unattended-Upgrade::Remove-Unused-Dependencies \"true\";
 Unattended-Upgrade::Automatic-Reboot-Time \"03:00\";
 Unattended-Upgrade::Automatic-Reboot \"true\";" > /etc/apt/apt.conf.d/50unattended-upgrades
-
-###############################################################
-
-# Step: software - additional
-apt install -y --no-install-recommends qemu-guest-agent rkhunter unhide
 
 ###############################################################
 
