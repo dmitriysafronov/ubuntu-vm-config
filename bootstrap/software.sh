@@ -127,6 +127,10 @@ systemctl disable motd-news.timer
 systemctl disable motd-news.service
 echo -e "ENABLED=0" > /etc/default/motd-news
 
+# Machine ID
+rm -f /etc/machine-id
+dbus-uuidgen --ensure=/etc/machine-id
+
 ###############################################################
 
 # Step: Swap & swappiness
