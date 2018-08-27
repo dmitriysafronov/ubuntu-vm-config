@@ -28,6 +28,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" inst
 apt install -y unattended-upgrades vim-tiny s-nail systemd-cron
 # linux-image-virtual-hwe-16.04-edge
 
+update-alternatives --install /usr/bin/mail mail /usr/bin/s-nail 0
+
 ###############################################################
 
 # Step: iptables-persistent
