@@ -176,9 +176,6 @@ rm -rf /var/lib/update-manager
 # release-upgrader
 rm -rf /var/lib/ubuntu-release-upgrader
 
-# netplan.io
-rm -rf /etc/netplan
-
 # Journal (if any)
 rm -rf /var/log/journal/* 2> /dev/null
 
