@@ -57,7 +57,7 @@ eject screen byobu update-motd language-selector-common language-pack-* dictiona
 accountsservice installation-report libx11-data xdg-user-dirs laptop-detect os-prober dmidecode wireless-regdb libdiscover2 libxml2 \
 pciutils usbutils linux-firmware linux-generic* linux-headers* landscape-common plymouth* \
 at ufw networkd-dispatcher overlayroot ubuntu-advantage-tools ubuntu-release-upgrader-core nano \
-libntfs-3g* dosfstools lshw
+libntfs-3g* dosfstools lshw popularity-contest
 apt autoremove --purge -y
 
 ###############################################################
