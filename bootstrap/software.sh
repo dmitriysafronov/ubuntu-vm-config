@@ -9,9 +9,9 @@ fi
 ###############################################################
 
 # Step: Preparation
-echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse
-deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu xenial-security main restricted universe multiverse" > /etc/apt/sources.list
+echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse
+deb http://ru.archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse" > /etc/apt/sources.list
 apt update
 
 # Step: software - essential - pt.1
@@ -25,7 +25,8 @@ echo "postfix postfix/protocols select all" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install --no-install-recommends -y postfix
 
 # Step: software - essential - pt.2
-apt install -y linux-image-virtual-hwe-16.04-edge unattended-upgrades vim-tiny s-nail systemd-cron
+apt install -y unattended-upgrades vim-tiny s-nail systemd-cron
+# linux-image-virtual-hwe-16.04-edge
 
 ###############################################################
 
