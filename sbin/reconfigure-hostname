@@ -16,10 +16,6 @@ if [[ -z "$(which wbinfo)" || -z "$(wbinfo -t > /dev/null 2>&1 && echo ok)" ]]; 
 
     sed "s/^127.0.1.1.*/127.0.1.1\t${TMP_FQDN}/g" -i /etc/hosts
 
-    # Machine ID
-    rm -f /etc/machine-id
-    dbus-uuidgen --ensure=/etc/machine-id
-
 else
     echo "AD member detected. Exiting..."
 fi
