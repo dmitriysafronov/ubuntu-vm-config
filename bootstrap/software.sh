@@ -56,7 +56,7 @@ apt purge -y open-iscsi lxd lxd-client lxcfs lxc-common snapd cron libpam-system
 eject screen byobu update-motd language-selector-common language-pack-* dictionaries-common emacsen-common wamerican wbritish \
 accountsservice installation-report libx11-data xdg-user-dirs laptop-detect os-prober dmidecode wireless-regdb libdiscover2 libxml2 \
 pciutils usbutils linux-firmware linux-generic* linux-headers* landscape-common plymouth* \
-at ufw networkd-dispatcher overlayroot ubuntu-advantage-tools ubuntu-release-upgrader-core nano \
+at ufw overlayroot ubuntu-advantage-tools ubuntu-release-upgrader-core nano \
 libntfs-3g* dosfstools lshw popularity-contest
 apt autoremove --purge -y
 
