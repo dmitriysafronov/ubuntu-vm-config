@@ -21,7 +21,7 @@ apt install -y debconf-utils
 echo "postfix postfix/main_mailer_type select Internet Site" | debconf-set-selections
 echo "postfix postfix/mailname string $(hostname -f)" | debconf-set-selections
 echo "postfix postfix/root_address string ${ROOTMAIL}" | debconf-set-selections
-echo "postfix postfix/protocols select all" | debconf-set-selections
+echo "postfix postfix/protocols select ipv4" | debconf-set-selections
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install --no-install-recommends -y postfix
 
 # Step: software - essential - pt.2
