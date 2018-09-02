@@ -101,7 +101,7 @@ echo -e "#!/bin/sh -e
 #
 # By default this script does nothing.
 
-exit 0 > /etc/rc.local
+exit 0" > /etc/rc.local
 	chmod ug+x /etc/rc.local
 fi
 
