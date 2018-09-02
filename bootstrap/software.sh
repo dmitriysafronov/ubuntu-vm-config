@@ -34,6 +34,12 @@ update-alternatives --install /usr/bin/mail mail /usr/bin/s-nail 0
 
 # Step: iptables-persistent
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::="--force-confnew" install -y iptables-persistent
+if [[ ! -d /proc/sys/net/ipv6 ]]; then
+	chmod a-x /usr/share/netfilter-persistent/plugins.d/25-ip6tables
+	echo 'DPkg::Post-Invoke {"chmod a-x /usr/share/netfilter-persistent/plugins.d/25-ip6tables";};' > /etc/apt/apt.conf.d/99-zz-disable-ipv6-save
+	rm /etc/iptables/rules.v6
+	netfilter-persistent save
+fi
 
 # Step: localepurge
 echo "localepurge localepurge/use-dpkg-feature boolean false" | debconf-set-selections
