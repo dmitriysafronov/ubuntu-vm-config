@@ -128,7 +128,7 @@ APT::Periodic::Unattended-Upgrade \"1\";" > /etc/apt/apt.conf.d/20auto-upgrades
 
 echo -e "Unattended-Upgrade::Origins-Pattern {
       \"o=*\";
-}
+};
 Unattended-Upgrade::AutoFixInterruptedDpkg \"true\";
 Unattended-Upgrade::MinimalSteps \"true\";
 Unattended-Upgrade::InstallOnShutdown \"false\";
