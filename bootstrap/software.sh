@@ -126,11 +126,9 @@ chmod 0750 /usr/local/sbin/reconfigure-hostname
 echo -e "APT::Periodic::Update-Package-Lists \"1\";
 APT::Periodic::Unattended-Upgrade \"1\";" > /etc/apt/apt.conf.d/20auto-upgrades
 
-echo -e "Unattended-Upgrade::Allowed-Origins {
-        \"\${distro_id}:\${distro_codename}\";
-        \"\${distro_id}:\${distro_codename}-security\";
-        \"\${distro_id}:\${distro_codename}-updates\";
-};
+echo -e "Unattended-Upgrade::Origins-Pattern {
+      "o=*";
+}
 Unattended-Upgrade::AutoFixInterruptedDpkg \"true\";
 Unattended-Upgrade::MinimalSteps \"true\";
 Unattended-Upgrade::InstallOnShutdown \"false\";
