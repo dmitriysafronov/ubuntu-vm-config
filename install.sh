@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -z "${ROOTMAIL}" || -z "${ACCOUNT_EMERGENCY}" || -z "${ACCOUNT_MAINTENANCE}" ]]; then
+if [[ -z "${ACCOUNT_EMERGENCY}" || -z "${ACCOUNT_MAINTENANCE}" || -z "${ROOTMAIL}" || -z "${MONITORING_SERVER}" ]]; then
 	clear; echo "Set up prerequesites first!"
 	break
 else
