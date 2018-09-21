@@ -117,11 +117,6 @@ wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfi
 chown root:root /usr/local/sbin/reconfigure-hostname
 chmod 0750 /usr/local/sbin/reconfigure-hostname
 
-## Step: rkhunter reconfigurator
-#wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/sbin/reconfigure-rkhunter -O /usr/local/sbin/reconfigure-rkhunter
-#chown root:root /usr/local/sbin/reconfigure-rkhunter
-#chmod 0750 /usr/local/sbin/reconfigure-rkhunter
-
 # Step: unattended-upgrades setup
 echo -e "APT::Periodic::Update-Package-Lists \"1\";
 APT::Periodic::Unattended-Upgrade \"1\";" > /etc/apt/apt.conf.d/20auto-upgrades
@@ -142,7 +137,6 @@ Unattended-Upgrade::Automatic-Reboot \"true\";" > /etc/apt/apt.conf.d/50unattend
 
 # Step: additional setup
 /usr/local/sbin/reconfigure-postfix
-/usr/local/sbin/reconfigure-rkhunter
 
 # STFU MOTD-NEWS
 systemctl stop motd-news.timer
