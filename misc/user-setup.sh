@@ -10,6 +10,6 @@ echo -e "if [[ \${UID} -eq 0 || \${UID} -ge 1000 ]]; then
 fi" > /etc/profile.d/tmux.sh
 
 # Step: software - misc
-apt install -y --no-install-recommends tmux mc unzip htop most configure-debian ncdu
+apt install -y --no-install-recommends tmux mc unzip htop most configure-debian ncdu pv
 
 #
