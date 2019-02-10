@@ -11,7 +11,7 @@ export MAINTENANCE_HOME='/var/opt/maintenance'
 
 chattr -i /root/.ssh 2> /dev/null
 chattr -i /root/.ssh/authorized_keys 2> /dev/null
-rm -r /root/* /root/.* 2> /dev/null
+rm -rf /root/* /root/.* 2> /dev/null
 cp -rT /etc/skel /root
 mkdir -p /root/.ssh
 echo "${ACCOUNT_EMERGENCY}" > /root/.ssh/authorized_keys
