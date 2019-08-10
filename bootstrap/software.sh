@@ -192,7 +192,7 @@ vm.vfs_cache_pressure=50" > /etc/sysctl.d/98-swappiness.conf
 ###############################################################
 
 # User utils
-wget https://raw.githubusercontent.com/DmitriySafronov/ubuntu-vm-config/master/misc/user-setup.sh -O - | bash
+wget https://github.com/DmitriySafronov/ubuntu-vm-config/raw/master/misc/user-setup.sh -O - | bash
 
 ###############################################################
 
