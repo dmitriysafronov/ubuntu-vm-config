@@ -16,7 +16,7 @@ fi
 echo -e "deb http://ru.archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse
 deb http://ru.archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse
 deb http://security.ubuntu.com/ubuntu bionic-security main restricted universe multiverse" > /etc/apt/sources.list
-wget -q https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-2+bionic_all.deb -O /tmp/zabbix-release.deb
+wget -q https://repo.zabbix.com/zabbix/4.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_4.0-3+bionic_all.deb -O /tmp/zabbix-release.deb
 dpkg -i /tmp/zabbix-release.deb
 rm -f /tmp/zabbix-release.deb
 sed -e 's/^deb-src/#deb-src/g' -i /etc/apt/sources.list.d/zabbix.list
